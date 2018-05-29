@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Http\Request;
+use App\Crip;
 use App\Kriteria;
-class KriteriaController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
+class CripController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +16,16 @@ class KriteriaController extends Controller
      */
     public function index(Request $req)
     {
-        $data = Kriteria::all();
-//        return response()->json($data);
-        return view('kriteria.index',['kriteria' => $data]);
+        $kriteria   = Kriteria::all();
+        $crips      = collect([]);
+        if ($req->k)
+        {
+            $crips = Kriteria::find($req->k)->crip;
+        }
+        return view('crip.index',[
+            'kriteria'  => $kriteria,
+            'crips'     => $crips,
+        ]);
     }
 
     /**
@@ -26,7 +35,8 @@ class KriteriaController extends Controller
      */
     public function create()
     {
-        return view('kriteria.tambah');
+        $kriteria = Kriteria::all();
+        return view('crip.tambah',['kriteria' => $kriteria]);
     }
 
     /**
@@ -38,11 +48,13 @@ class KriteriaController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
-        $saveKriteria = Kriteria::create($request->all());
-        if (!$saveKriteria) {
+        $kriteria = Kriteria::find($request->kriteria);
+        $saveCrip = $kriteria->crip()->create($request->except(['_token','kriteria']));
+        if (!$saveCrip)
+        {
             return back();
         }
-        return redirect(route('kriteria'));
+        return redirect(route('crip'));
     }
 
     /**
@@ -64,8 +76,12 @@ class KriteriaController extends Controller
      */
     public function edit($id)
     {
-        $kriteria = Kriteria::find($id);
-        return view('kriteria.edit',['data' => $kriteria]);
+        $kriteria   = Kriteria::all();
+        $crip       = Crip::find($id);
+        return view('crip.edit',[
+            'kriteria'  => $kriteria,
+            'crip'     => $crip,
+        ]);
     }
 
     /**
@@ -77,12 +93,15 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateData = Kriteria::where('id',$id)
-                        ->update($request->except('_token'));
-        if (!$updateData) {
-            return back();
+        $krit = Kriteria::find((int) $request->kriteria);
+        $crip = Crip::find($id);
+        $updated = $crip->update($request->except(['_token','kriteria']));
+        if ($updated)
+        {
+            $crip->kriteria()->associate($krit)->save();
+            return redirect(route('crip')."?k=".$request->kriteria);
         }
-        return redirect(route('kriteria'));
+        return back();
     }
 
     /**
@@ -93,17 +112,16 @@ class KriteriaController extends Controller
      */
     public function destroy($id)
     {
-        $find = Kriteria::destroy($id);
-        return redirect(route('kriteria'));
+        $crip = Crip::destroy($id);
+        return back();
     }
 
     private function validator(array $data)
     {
         return Validator::make($data,[
-            'kode'      => 'required|unique:kriteria',
-            'nama'      => 'required',
-            'atribut'   => 'required',
-            'bobot'     => 'required'
+            'kriteria'      => 'required',
+            'nama_crip'     => 'required',
+            'nilai_crip'    => 'required'
         ]);
     }
 }

@@ -7,17 +7,17 @@
                 <div class="card">
                     <div class="card-header">
                         <h2 class="float-left">Kriteria</h2>
-                        <form action="" class="form-inline float-right">
-                            <div class="form-group">
-                                <input type="text" name="q" placeholder="Carilah sesuatu" class="form-control" value="{{request('q')?request('q'):''}}">
-                            </div>
-                            <div class="form-group">
-                                <button type="refresh" class="btn btn-danger">Refresh</button>
-                            </div>
-                            <div class="form-group">
+                        {{--<form action="" class="form-inline float-right">--}}
+                            {{--<div class="form-group">--}}
+                                {{--<input type="text" name="q" placeholder="Carilah sesuatu" class="form-control" value="{{request('q')?request('q'):''}}">--}}
+                            {{--</div>--}}
+                            {{--<div class="form-group">--}}
+                                {{--<button type="refresh" class="btn btn-danger">Refresh</button>--}}
+                            {{--</div>--}}
+                            <div class="float-right">
                                 <a href="{{route('kriteria.tambah')}}" class="btn btn-success">Tambah</a>
                             </div>
-                        </form>
+                        {{--</form>--}}
                     </div>
 
                     <div class="card-body">
@@ -41,9 +41,12 @@
                                             <td>{{$data->atribut}}</td>
                                             <td>{{$data->bobot}}</td>
                                             <td class="text-center">
-                                                <a href="" class="btn btn-sm btn-info">Crip</a>
-                                                <a href="" class="btn btn-sm btn-warning">Edit</a>
-                                                <a href="" class="btn btn-sm btn-danger">Hapus</a>
+                                                <form action="{{route('kriteria.hapus',['id' => $data->id])}}" method="POST">
+                                                    @csrf
+                                                    <a href="{{route('crip')."?k=".$data->id}}" class="btn btn-sm btn-info">Crip</a>
+                                                    <a href="{{route('kriteria.edit',['id' => $data->id])}}" class="btn btn-sm btn-warning">Edit</a>
+                                                    <button type="submit" class="btn btn-sm btn-danger">Hapus</button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach

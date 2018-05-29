@@ -14,7 +14,8 @@
         <style>
             html, body {
                 background-color: #fff;
-                color: #636b6f;
+                /*color: #636b6f;*/
+                color: black;
                 font-family: 'Raleway', sans-serif;
                 font-weight: 100;
                 height: 100vh;
@@ -79,15 +80,13 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    SPK-SAW
                 </div>
-
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    Sistem Pengambilan Keputusan Berbasis Web dengan Metode SAW
+                </div>
+                <div class="links">
+                    Made with <span style="color: red;">&hearts;</span> By<a style="color: darkred;" href="https://gitlab.com/tukangsare/">Nur Muh. Umar Ihsani</a>
                 </div>
             </div>
         </div>

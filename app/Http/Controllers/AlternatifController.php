@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\Validator;
+use App\Alternatif;
 use Illuminate\Http\Request;
-use App\Kriteria;
-class KriteriaController extends Controller
+use Illuminate\Support\Facades\Validator;
+
+class AlternatifController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        $data = Kriteria::all();
-//        return response()->json($data);
-        return view('kriteria.index',['kriteria' => $data]);
+        $alternatifs = Alternatif::all();
+        return view('alternatif.index', ['alternatif' => $alternatifs]);
     }
 
     /**
@@ -26,7 +26,7 @@ class KriteriaController extends Controller
      */
     public function create()
     {
-        return view('kriteria.tambah');
+        return view('alternatif.tambah');
     }
 
     /**
@@ -38,11 +38,11 @@ class KriteriaController extends Controller
     public function store(Request $request)
     {
         $this->validator($request->all())->validate();
-        $saveKriteria = Kriteria::create($request->all());
-        if (!$saveKriteria) {
+        $saveAlternatif = Alternatif::create($request->all())->id;
+        if (!$saveAlternatif) {
             return back();
         }
-        return redirect(route('kriteria'));
+        return redirect(route('nilai.tambah',['id' => $saveAlternatif]));
     }
 
     /**
@@ -64,8 +64,8 @@ class KriteriaController extends Controller
      */
     public function edit($id)
     {
-        $kriteria = Kriteria::find($id);
-        return view('kriteria.edit',['data' => $kriteria]);
+        $alternatif = Alternatif::find($id);
+        return view('alternatif.edit',['alternatif' => $alternatif]);
     }
 
     /**
@@ -77,12 +77,12 @@ class KriteriaController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $updateData = Kriteria::where('id',$id)
-                        ->update($request->except('_token'));
-        if (!$updateData) {
+        $updateAlternatif = Alternatif::where('id',$id)
+                ->update($request->except(['_token']));
+        if (!$updateAlternatif) {
             return back();
         }
-        return redirect(route('kriteria'));
+        return redirect(route('alternatif'));
     }
 
     /**
@@ -93,17 +93,15 @@ class KriteriaController extends Controller
      */
     public function destroy($id)
     {
-        $find = Kriteria::destroy($id);
-        return redirect(route('kriteria'));
+        $alternatif = Alternatif::destroy($id);
+        return redirect(route('alternatif'));
     }
 
     private function validator(array $data)
     {
         return Validator::make($data,[
-            'kode'      => 'required|unique:kriteria',
-            'nama'      => 'required',
-            'atribut'   => 'required',
-            'bobot'     => 'required'
+            'kode_alternatif' => 'required',
+            'nama_alternatif' => 'required',
         ]);
     }
 }

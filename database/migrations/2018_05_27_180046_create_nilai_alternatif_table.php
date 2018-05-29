@@ -17,11 +17,12 @@ class CreateNilaiAlternatifTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('alternatif_id')->index()->nullable();
             $table->unsignedInteger('crip_id')->index()->nullable();
-            $table->timestamps();
+//            $table->timestamps();
             $table->foreign('alternatif_id')
                 ->references('id')
                 ->on('alternatif')
-                ->onUpdate('cascade');
+                ->onUpdate('cascade')
+                ->onDelete('cascade');
             $table->foreign('crip_id')
                 ->references('id')
                 ->on('crip')
