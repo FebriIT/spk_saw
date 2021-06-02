@@ -16,4 +16,9 @@ class Alternatif extends Model
     {
         return $this->belongsToMany(\App\Crip::class,'nilai_alternatif','alternatif_id','crip_id');
     }
+
+    public function beasiswa()
+    {
+        return $this->belongsToMany(\App\PenerimaBeasiswa::class,'nilai_alternatif','alternatif_id','crip_id');
+    }
 }

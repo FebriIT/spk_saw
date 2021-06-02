@@ -71,8 +71,10 @@
                 <div class="top-right links">
                     @auth
                         <a href="{{ url('/home') }}">Home</a>
+                        <a href="/kepsek">Kepsek</a>
+                        <a href="/logout">Logout</a>
                     @else
-                        <a href="{{ route('login') }}">Login</a>
+                        <a href="/login">Login</a>
                         <a href="{{ route('register') }}">Register</a>
                     @endauth
                 </div>

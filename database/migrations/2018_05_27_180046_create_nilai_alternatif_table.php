@@ -26,7 +26,7 @@ class CreateNilaiAlternatifTable extends Migration
             $table->foreign('crip_id')
                 ->references('id')
                 ->on('crip')
-                ->onUpdate('cascade');
+                ->onDelete('cascade');
         });
     }
 

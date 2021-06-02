@@ -42,7 +42,7 @@ class AlternatifController extends Controller
         if (!$saveAlternatif) {
             return back();
         }
-        return redirect(route('nilai.tambah',['id' => $saveAlternatif]));
+        return redirect(route('nilai.tambah',['id' => $saveAlternatif]))->with('message','Sukses Menyimpan Data');
     }
 
     /**
@@ -82,7 +82,7 @@ class AlternatifController extends Controller
         if (!$updateAlternatif) {
             return back();
         }
-        return redirect(route('alternatif'));
+        return redirect(route('alternatif'))->with('message','Sukses Mengupdate Data');
     }
 
     /**
@@ -94,7 +94,7 @@ class AlternatifController extends Controller
     public function destroy($id)
     {
         $alternatif = Alternatif::destroy($id);
-        return redirect(route('alternatif'));
+        return redirect(route('alternatif'))->with('message','Sukses Menghapus Data');
     }
 
     private function validator(array $data)

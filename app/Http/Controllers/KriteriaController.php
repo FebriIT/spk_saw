@@ -42,7 +42,7 @@ class KriteriaController extends Controller
         if (!$saveKriteria) {
             return back();
         }
-        return redirect(route('kriteria'));
+        return redirect(route('kriteria'))->with('message','Sukses Menyimpan Data');
     }
 
     /**
@@ -82,7 +82,7 @@ class KriteriaController extends Controller
         if (!$updateData) {
             return back();
         }
-        return redirect(route('kriteria'));
+        return redirect(route('kriteria'))->with('message','Sukses Mengupdate Data!');
     }
 
     /**
@@ -94,7 +94,7 @@ class KriteriaController extends Controller
     public function destroy($id)
     {
         $find = Kriteria::destroy($id);
-        return redirect(route('kriteria'));
+        return redirect(route('kriteria'))->with('message','Sukses Menghapus Data!');
     }
 
     private function validator(array $data)

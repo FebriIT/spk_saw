@@ -54,7 +54,7 @@ class CripController extends Controller
         {
             return back();
         }
-        return redirect(route('crip'));
+        return redirect(route('crip'))->with('message','Sukses Menyimpan Data');
     }
 
     /**
@@ -99,7 +99,7 @@ class CripController extends Controller
         if ($updated)
         {
             $crip->kriteria()->associate($krit)->save();
-            return redirect(route('crip')."?k=".$request->kriteria);
+            return redirect(route('crip')."?k=".$request->kriteria)->with('message','Sukses Mengupdate Data');
         }
         return back();
     }
@@ -113,7 +113,7 @@ class CripController extends Controller
     public function destroy($id)
     {
         $crip = Crip::destroy($id);
-        return back();
+        return back()->with('message','Sukses Menghapus Data');
     }
 
     private function validator(array $data)

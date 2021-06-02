@@ -47,7 +47,7 @@ class NilaiController extends Controller
 //        $data = Crip::find($data);
         $alternatif = Alternatif::find($id);
         $alternatif->crip()->sync($data);
-        return redirect(route('alternatif'));
+        return redirect(route('alternatif'))->with('message','Sukses Menyimpan Data');
     }
 
     /**
@@ -97,7 +97,7 @@ class NilaiController extends Controller
 //        $data = Crip::find($data);
         $alternatif = Alternatif::find($id);
         $alternatif->crip()->sync($data);
-        return redirect(route('nilai'));
+        return redirect(route('nilai'))->with('message','Sukses Mengupdate Data');
     }
 
     /**
@@ -108,6 +108,7 @@ class NilaiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $find = Alternatif::destroy($id);
+        return redirect(route('nilai'))->with('message','Sukses Menghapus Data');
     }
 }

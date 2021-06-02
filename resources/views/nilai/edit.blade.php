@@ -1,12 +1,13 @@
-@extends('layouts.app')
+@extends('layouts.masters')
 
 @section('content')
+<div class="content-wrapper">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-8">
+            <div class="col-md-8 mt-5">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="float-left">Tambah Alternatif</h2>
+                        <h2 class="float-left">Edit Data Alternatif</h2>
                         </form>
                     </div>
 
@@ -26,7 +27,7 @@
                                     </div>
                                 @endforeach
                                 <div class="float-right">
-                                    <button type="submit" class="btn btn-success">Tambah</button>
+                                    <button type="submit" class="btn btn-success">Simpan</button>
                                 </div>
                             </form>
                         </div>
@@ -35,4 +36,6 @@
             </div>
         </div>
     </div>
+</div>
+
 @endsection
